@@ -1,0 +1,120 @@
+/* Write your CSS here */
+.app-container {
+  background-image: linear-gradient(to right, #ffffff, #cffcf1, #defafe);
+  background-position: center;
+
+  background-size: cover;
+  min-height: 100vh;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.card-container {
+  display: flex;
+  background-position: center;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+  padding: 30px;
+}
+.digital-timer-container {
+  width: 40vw;
+  height: 60vh;
+  background-image: url('https://assets.ccbp.in/frontend/react-js/digital-timer-elapsed-bg.png');
+  display: flex;
+  background-position: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.digital-time {
+  width: 160px;
+  height: 150px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  background-color: #ffffff;
+  border-radius: 80px;
+}
+.time {
+  color: #00d9f5;
+  font-size: 28px;
+  font-family: 'roboto';
+  font-weight: 600;
+}
+.timer-status {
+  color: #1e293b;
+  font-size: 16px;
+  font-family: 'roboto';
+  font-weight: 500;
+  margin: 0px;
+}
+.timer-controller-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 200px;
+  justify-content: center;
+  align-items: center;
+  max-width: 280px;
+}
+.timer-controller-btn {
+  background-color: transparent;
+  border: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 10px;
+}
+.timer-controller-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+.timer-controller-label {
+  color: #0f172a;
+  font-family: 'roboto';
+  font-size: 20px;
+  font-weight: bold;
+}
+.timer-set-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  text-align: center;
+}
+.timer-set-controller {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.controller-time {
+  align-self: center;
+  text-align: center;
+  background-color: #0ef0b8;
+  font-size: 24px;
+  font-family: 'roboto';
+  font-weight: bold;
+  width: 80px;
+  height: 50px;
+  margin-right: 10px;
+  margin-left: 10px;
+  padding: 10px;
+  color: #0f172a;
+  border-radius: 10px;
+}
+.timer-controller {
+  color: #0f172a;
+  font-size: 24px;
+  font-family: 'roboto';
+  font-weight: bold;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+}
