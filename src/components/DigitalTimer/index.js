@@ -7,39 +7,53 @@ class DigitalTimer extends Component {
 
   onStartOrPauseTimer = () => {
     const {isTimerRunning, timeInSeconds, timeLimitInMinutes} = this.state
+    let secCount = timeInSeconds
+    let minCount = timeLimitInMinutes
     if (!isTimerRunning) {
       this.intervalId = setInterval(() => {
-        if (timeInSeconds !== 0) {
+        if (secCount !== 0) {
+          secCount -= 1
+          console.log(secCount)
           this.setState(prevState => ({
             timeInSeconds: prevState.timeInSeconds - 1,
           }))
-        } else if (timeInSeconds === 0) {
+        } else if (secCount === 0 && minCount !== 0) {
+          secCount = 59
+          minCount -= 1
+          console.log(secCount)
           this.setState(prevState => ({
-            timeInSeconds: 60,
+            timeInSeconds: 59,
             timeLimitInMinutes: prevState.timeLimitInMinutes - 1,
           }))
         }
       }, 1000)
     } else {
-      this.clearInterval(this.intervalId)
+      clearInterval(this.intervalId)
     }
     this.setState(prevState => ({isTimerRunning: !prevState.isTimerRunning}))
   }
 
   increaseByMinute = () => {
-    this.setState(prevState => ({
-      timeLimitInMinutes: prevState.timeLimitInMinutes + 1,
-    }))
+    const {isTimerRunning} = this.state
+    if (!isTimerRunning) {
+      this.setState(prevState => ({
+        timeLimitInMinutes: prevState.timeLimitInMinutes + 1,
+      }))
+    }
   }
 
   decreaseByMinute = () => {
-    this.setState(prevState => ({
-      timeLimitInMinutes: prevState.timeLimitInMinutes - 1,
-    }))
+    const {isTimerRunning} = this.state
+    if (!isTimerRunning) {
+      this.setState(prevState => ({
+        timeLimitInMinutes: prevState.timeLimitInMinutes - 1,
+      }))
+    }
   }
 
   resetTimer = () => {
-    this.setState({timeInSeconds: 0, timeLimitInMinutes: 25})
+    clearInterval(this.intervalId)
+    this.setState({timeInSeconds: 0, timeLimitInMinutes: 25, isTimerRunning: false})
   }
 
   render() {
@@ -55,6 +69,8 @@ class DigitalTimer extends Component {
 
     const stringifiedSeconds =
       timeInSeconds > 9 ? timeInSeconds : `0${timeInSeconds}`
+    const elapsedTime = `${stringifiedMinutes}:${stringifiedSeconds}`
+    const setTimerLimit = timeLimitInMinutes >25 ? timeLimitInMinutes : 25
     return (
       <div className="app-container">
         <h1 className="main-heading">Digital Timer</h1>
@@ -62,14 +78,16 @@ class DigitalTimer extends Component {
           <div className="digital-timer-container">
             <div className="digital-time">
               <h1 className="time">
-                {stringifiedMinutes} : {stringifiedSeconds}
+                {elapsedTime}
               </h1>
-              <span className="timer-status">Running</span>
+              <p className="timer-status">
+                {isTimerRunning ? 'Running' : 'Paused'}
+              </p>
             </div>
           </div>
           <div className="timer-controller-container">
             <button
-              className="timer-controller-btn"
+              className="timer-controller-btn timer-controller-label"
               type="button"
               onClick={this.onStartOrPauseTimer}
             >
@@ -78,12 +96,12 @@ class DigitalTimer extends Component {
                 src={timerStatusIcon}
                 alt={timerStatusAltText}
               />
-              <p className="timer-controller-label">
-                {isTimerRunning ? 'Pause' : 'Play'}
-              </p>
+              
+                {isTimerRunning ? 'Pause' : 'Start'}
+              
             </button>
             <button
-              className="timer-controller-btn"
+              className="timer-controller-btn timer-controller-label"
               type="button"
               onClick={this.resetTimer}
             >
@@ -92,11 +110,11 @@ class DigitalTimer extends Component {
                 src="https://assets.ccbp.in/frontend/react-js/reset-icon-img.png"
                 alt="reset icon"
               />
-              <p className="timer-controller-label">Reset</p>
+              Reset
             </button>
             <div className="timer-set-container">
               <p className="timer-controller-label" htmlFor="controllerTime">
-                Set Timer
+                Set Timer limit
               </p>
               <div className="timer-set-controller">
                 <button
@@ -106,9 +124,9 @@ class DigitalTimer extends Component {
                 >
                   -
                 </button>
-                <h1 className="controller-time" id="controllerTime">
-                  {timeLimitInMinutes}
-                </h1>
+                <p className="controller-time" id="controllerTime">
+                  {setTimerLimit}
+                </p>
                 <button
                   className="timer-controller"
                   onClick={this.increaseByMinute}
